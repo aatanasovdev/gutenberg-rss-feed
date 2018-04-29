@@ -1,5 +1,9 @@
 const { __ } = wp.i18n;
 
+const { Fragment } = wp.element;
+
+const { PanelBody } = wp.components;
+
 const {
 	registerBlockType,
 	InspectorControls,
@@ -33,20 +37,21 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 		};
 
 		return (
-			<div>
+			<Fragment>
 				<InspectorControls>
-					<UrlInput
-						value={ url }
-						label="Test"
-						onChange={ onChangeURL }
-					/>
+					<PanelBody title={ __('Settings') }>
+						<UrlInput
+							value={ url }
+							onChange={ onChangeURL }
+						/>
+					</PanelBody>
 				</InspectorControls>
 				<div
 					className={ className }
 				>
 					{ __('Please set up the settings of the widget from the right sidebar.') }
 				</div>
-			</div>
+			</Fragment>
 		);
 	},
 
