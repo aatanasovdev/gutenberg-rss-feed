@@ -1,5 +1,5 @@
 {
-  "name": "gutenberg-external-rss-feed",
+  "name": "gutenberg-rss-feed",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aatanasovdev/gutenberg-external-rss-feed.git"
+    "url": "git+https://github.com/aatanasovdev/gutenberg-rss-feed.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aatanasovdev/gutenberg-external-rss-feed/issues"
+    "url": "https://github.com/aatanasovdev/gutenberg-rss-feed/issues"
   },
-  "homepage": "https://github.com/aatanasovdev/gutenberg-external-rss-feed#readme",
+  "homepage": "https://github.com/aatanasovdev/gutenberg-rss-feed#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -26,5 +26,6 @@
     "babel-preset-env": "^1.6.1",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15"
-  }
+  },
+  "dependencies": {}
 }

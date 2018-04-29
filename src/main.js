@@ -1,24 +1,53 @@
 const { __ } = wp.i18n;
-const { registerBlockType } = wp.blocks;
-const { InspectorControls } = wp.blocks.InspectorControls;
 
-registerBlockType('gutenberg-widget-block/external-rss-feed', {
-	title: __('External RSS Feed'),
+const {
+	registerBlockType,
+	InspectorControls,
+	UrlInput,
+	source,
+} = wp.blocks;
+
+registerBlockType('gutenberg-widget-block/rss-feed', {
+	title: 'RSS Feed',
 
 	icon: 'rss',
 
 	category: 'widgets',
 
-    attributes: {
-        url: {
-            type: 'string',
-        },
-    },
+	attributes: {
+		content: {
+			type: 'array',
+			source: 'children',
+			selector: 'p',
+		},
+		url: {
+			type: 'string',
+		},
+	},
 
-	edit() {
-		let info = __('Set up the widget using the block settings on the right sidebar.');
+	edit( { attributes, className, setAttributes } ) {
+		const { url } = attributes;
 
-		return <p>{ info }</p>;
+		const onChangeURL = newURL => {
+			setAttributes( { url: newURL } );
+		};
+
+		return (
+			<div>
+				<InspectorControls>
+					<UrlInput
+						value={ url }
+						label="Test"
+						onChange={ onChangeURL }
+					/>
+				</InspectorControls>
+				<div
+					className={ className }
+				>
+					{ __('Please set up the settings of the widget from the right sidebar.') }
+				</div>
+			</div>
+		);
 	},
 
 	save() {

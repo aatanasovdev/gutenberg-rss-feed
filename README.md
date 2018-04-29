@@ -1,1 +1,1 @@
-### Gutenberg -- external RSS feed
+### Gutenberg -- RSS feed
