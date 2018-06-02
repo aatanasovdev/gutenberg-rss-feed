@@ -1,5 +1,5 @@
 module.exports = {
-	mode: "development",
+	mode: process.env.NODE_ENV,
 	entry: ["babel-polyfill", "./src/main.js"],
 	output: {
 		filename: "bundle.js"
@@ -9,5 +9,5 @@ module.exports = {
 			{ test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
 		]
 	},
-	watch: true
+	watch: process.env.NODE_ENV === 'development' ? true : false
 }
