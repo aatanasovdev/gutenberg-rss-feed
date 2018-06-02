@@ -5,22 +5,34 @@ Version: 1.0
 License: GPL2
 */
 
-// function gutenberg_rss_feed() {
-// 	wp_register_script(
-// 		'gutenberg-block-rss-feed',
-// 		plugins_url( 'dist/bundle.js', __FILE__ ),
-// 		array( 'wp-blocks', 'wp-element' )
-// 	);
 
-// 	register_block_type( 'gutenberg-widget-block/rss-feed', array(
-// 		'editor_script' => 'gutenberg-block-rss-feed',
-// 		'render_callback' => 'gutenberg_rss_feed_render',
-// 	) );
-// }
+class GutenbergRssFeed {
+	
+	static function init() {
+		self::check_gutenberg();
+		self::registerBlock();
+	}
 
-// add_action('init', 'gutenberg_rss_feed');
+	static function registerBlock() {
+		wp_register_script(
+			'gutenberg-block-rss-feed',
+			plugins_url( 'dist/bundle.js', __FILE__ ),
+			array( 'wp-blocks', 'wp-element' )
+		);
 
+		register_block_type( 'gutenberg-widget-block/rss-feed', array(
+			'editor_script' => 'gutenberg-block-rss-feed',
+			'render_callback' => array(__CLASS__, 'gutenberg_rss_feed_render'),
+		) );		
+	}
 
-// function gutenberg_rss_feed_render() {
-// 	return '<p>Tes tet</p>';
-// }
+	static function gutenberg_rss_feed_render() {
+		return '<p>List the feed</p>';
+	}
+
+	static function check_gutenberg() {
+		// Require Gutenberg to be installed
+	}
+}
+
+add_action('init', array('GutenbergRssFeed', 'init'));
