@@ -49,7 +49,10 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 		const validateURL = () => {
 			if(validUrl.isWebUri(url) === undefined) {
 				setAttributes( { error: true } );
+				return;
 			}
+
+			setAttributes( { error: false } );
 		};
 
 		return (
@@ -71,6 +74,7 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 						{ __( 'Validate' ) }
 					</Button>
 					{ error && <p className="components-placeholder__error">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
+
 				</div>
 			</Fragment>
 		);
