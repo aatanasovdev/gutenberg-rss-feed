@@ -5,7 +5,6 @@ Version: 1.0
 License: GPL2
 */
 
-
 class GutenbergRssFeed {
 	
 	static function init() {

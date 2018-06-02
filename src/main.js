@@ -33,21 +33,23 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 		url: {
 			type: 'string',
 		},
+		error: {
+			type: 'boolean',
+			default: false
+		}
 	},
 
 	edit( { attributes, className, setAttributes } ) {
-		const error = false;
-
-		const { url } = attributes;
+		const { url, error } = attributes;
 
 		const onChangeURL = newURL => {
 			setAttributes( { url: newURL } );
 		};
 
 		const validateURL = () => {
-			// if(validUrl.isWebUri('http://google.com') === 'undefined') {
-			// 	error = true;
-			// }
+			if(validUrl.isWebUri(url) === undefined) {
+				setAttributes( { error: true } );
+			}
 		};
 
 		return (
@@ -68,7 +70,7 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 						type="submit">
 						{ __( 'Validate' ) }
 					</Button>
-					{ error && <p className="components-placeholder__error">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }										
+					{ error && <p className="components-placeholder__error">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
 				</div>
 			</Fragment>
 		);
