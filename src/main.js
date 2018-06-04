@@ -2,12 +2,11 @@ const { __ } = wp.i18n;
 
 const { Fragment } = wp.element;
 
-const validUrl = require('valid-url');
-
 const { 
 	PanelBody,
 	TextControl,
-	Button
+	Button,
+	withAPIData
 } = wp.components;
 
 const {
@@ -44,15 +43,26 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 
 		const onChangeURL = newURL => {
 			setAttributes( { url: newURL } );
-		};
+		};			
 
 		const validateURL = () => {
-			if(validUrl.isWebUri(url) === undefined) {
-				setAttributes( { error: true } );
-				return;
-			}
 
 			setAttributes( { error: false } );
+
+			wp.apiRequest({
+				url: wpApiSettings.validateFeedUrl,
+				data: {
+					url: url
+				},
+				type: 'GET',
+				dataType: 'json'
+			}).done( ( response ) => {
+				if(!response.success) {
+					setAttributes( { error: true } );
+				}
+			}).fail( () => {
+				alert('Something went wrong!')
+			});
 		};
 
 		return (
@@ -61,8 +71,8 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 					className={ className }
 				>
 					<TextControl
-						label={ __( 'Feed URL' ) }
-						placeholder={ __( 'Type the URL of your RSS feed.' ) }
+						label={ __( 'Feed URL', 'gutenberg-rss-feed' ) }
+						placeholder={ __( 'Type the URL of your RSS feed.', 'gutenberg-rss-feed' ) }
 						value={ url }
 						type="url"
 						onChange={ onChangeURL }
@@ -73,7 +83,7 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 						type="submit">
 						{ __( 'Validate' ) }
 					</Button>
-					{ error && <p className="components-placeholder__error">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
+					{ error && <p className="components-placeholder__error">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.', 'gutenberg-rss-feed' ) }</p> }
 
 				</div>
 			</Fragment>
