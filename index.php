@@ -57,12 +57,13 @@ class GutenbergRssFeed {
 		ob_start();
 		?>
 		<ul>
-			<?php foreach($feed_items as $item) ?>
-            <li>
-                <a target="_blank" href="<?php echo esc_url( $item->get_permalink() ); ?>" title="<?php printf( __( 'Posted %s', 'gutenberg-rss-feed' ), $item->get_date('j F Y | g:i a') ); ?>">
-                    <?php echo esc_html( $item->get_title() ); ?>
-                </a>
-            </li>
+			<?php foreach($feed_items as $item) : ?>
+	            <li>
+	                <a target="_blank" href="<?php echo esc_url( $item->get_permalink() ); ?>" title="<?php printf( __( 'Posted %s', 'gutenberg-rss-feed' ), $item->get_date('j F Y | g:i a') ); ?>">
+	                    <?php echo esc_html( $item->get_title() ); ?>
+	                </a>
+	            </li>
+			<?php endforeach; ?>
 		</ul>
 		<?php
 		return ob_get_clean();
@@ -106,6 +107,7 @@ class GutenbergRssFeed {
 		$validated['success'] = false;
 
 		$feed = fetch_feed($data['url']);
+
 		if(!is_wp_error($feed) || !isset($feed->errors)) {
 			$validated['success'] = true;
 		}
