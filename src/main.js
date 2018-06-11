@@ -76,8 +76,8 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 					className={ className }
 				>
 					<TextControl
-						label={ __( 'Feed URL', 'gutenberg-rss-feed' ) }
-						placeholder={ __( 'Type the URL of your RSS feed.', 'gutenberg-rss-feed' ) }
+						label={ __( 'Feed URL' ) }
+						placeholder={ __( 'Type the URL of your RSS feed.' ) }
 						value={ url }
 						type="url"
 						onChange={ onChangeURL }
@@ -88,8 +88,8 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 						type="submit">
 						{ __( 'Validate' ) }
 					</Button>
-					{ error && <p>{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.', 'gutenberg-rss-feed' ) }</p> }
-					{ !error && validated && <p>{ __( 'Feed validated successfully.', 'gutenberg-rss-feed' ) }</p> }
+					{ error && <p>{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
+					{ !error && validated && <p>{ __( 'Feed validated successfully.' ) }</p> }
 
 				</div>
 			</Fragment>
