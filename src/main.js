@@ -98,6 +98,7 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 
 	save( props ) {
 		props.attributes.validated = false;
+		props.attributes.error = false;
 		return null;
 	},
 });
