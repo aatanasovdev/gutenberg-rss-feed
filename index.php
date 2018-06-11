@@ -2,6 +2,7 @@
 /*
 Plugin Name: Gutenberg -- RSS feed
 Version: 1.0
+Text Domain: gutenberg-rss-feed
 License: GPL2
 */
 
@@ -27,29 +28,22 @@ class GutenbergRssFeed {
 	}
 
 	static function gutenberg_rss_feed_render($data) {
-		$invalid_feed = false;
-		$message = '';
+		if(is_admin()) {
+			return;
+		}
 
 		if(!$data['url']) {
-			$invalid_feed = true;
+			self::show_message( __('Please set the URL of the RSS feed through the WordPress dashboard.', 'gutenberg-rss-feed') );
 		}
 
 		$feed = fetch_feed($data['url']);
 
 		if(is_wp_error($feed) || isset($feed->errors)) {
-			$invalid_feed = true;	
+			return self::show_message( __('Please make sure the provided URL is a valid feed.', 'gutenberg-rss-feed') );
 		}
 
-		if($invalid_feed) {
-			$message = __('Please configure your RSS feed through the WordPress dashboard.', 'gutenberg-rss-feed');
-		}
-
-		if(!$feed->get_item_quantity()) {
-			$message = __('No feed items found.', 'gutenberg-rss-feed');
-		}
-
-		if($message) {
-			return wpautop($message);
+		if(isset($feed->get_item_quantity) && !$feed->get_item_quantity()) {
+			return self::show_message( __('No feed items found.', 'gutenberg-rss-feed') );
 		}
 
 		$feed_items = $feed->get_items(0, 10);
@@ -68,6 +62,10 @@ class GutenbergRssFeed {
 		<?php
 		return ob_get_clean();
 
+	}
+
+	static function show_message($text) {
+		return $text;
 	}
 
 	static function check_gutenberg() {
@@ -102,14 +100,14 @@ class GutenbergRssFeed {
 	}
 
 	static function validate_feed_url_endpoint($data) {
-		include_once(ABSPATH . WPINC . '/feed.php');
-
 		$validated['success'] = false;
 
-		$feed = fetch_feed($data['url']);
+		if(!empty($data['url'])) {
+			$feed = fetch_feed($data['url']);
 
-		if(!is_wp_error($feed) || !isset($feed->errors)) {
-			$validated['success'] = true;
+			if(!is_wp_error($feed) || !isset($feed->errors)) {
+				$validated['success'] = true;
+			}
 		}
 
 		return wp_send_json($validated);

@@ -5,15 +5,14 @@ const { Fragment } = wp.element;
 const { 
 	PanelBody,
 	TextControl,
-	Button,
-	withAPIData
+	Button
 } = wp.components;
 
 const {
 	registerBlockType,
 	InspectorControls,
 	UrlInput,
-	source,
+	source
 } = wp.blocks;
 
 registerBlockType('gutenberg-widget-block/rss-feed', {
