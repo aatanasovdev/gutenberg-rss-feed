@@ -41,11 +41,6 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 		}		
 	},
 
-	constructor() {
-		console.log('22');
-	},
-
-	// edit( { attributes, className, setAttributes } ) {
 	edit( { attributes, className, setAttributes } ) {
 		const { url, error, validated } = attributes;
 
