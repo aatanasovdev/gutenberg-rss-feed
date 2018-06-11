@@ -34,19 +34,27 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 		error: {
 			type: 'boolean',
 			default: false
-		}
+		},
+		validated: {
+			type: 'boolean',
+			default: false
+		}		
 	},
 
+	constructor() {
+		console.log('22');
+	},
+
+	// edit( { attributes, className, setAttributes } ) {
 	edit( { attributes, className, setAttributes } ) {
-		const { url, error } = attributes;
+		const { url, error, validated } = attributes;
 
 		const onChangeURL = newURL => {
 			setAttributes( { url: newURL } );
 		};			
 
 		const validateURL = () => {
-
-			setAttributes( { error: false } );
+			setAttributes( { error: false, validated: false } );
 
 			wp.apiRequest({
 				url: wpApiSettings.validateFeedUrl,
@@ -58,7 +66,10 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 			}).done( ( response ) => {
 				if(!response.success) {
 					setAttributes( { error: true } );
-				}
+					return;
+				} 
+				
+				setAttributes( { validated: true } );
 			}).fail( () => {
 				alert('Something went wrong!')
 			});
@@ -82,14 +93,16 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 						type="submit">
 						{ __( 'Validate' ) }
 					</Button>
-					{ error && <p className="components-placeholder__error">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.', 'gutenberg-rss-feed' ) }</p> }
+					{ error && <p>{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.', 'gutenberg-rss-feed' ) }</p> }
+					{ !error && validated && <p>{ __( 'Feed validated successfully.', 'gutenberg-rss-feed' ) }</p> }
 
 				</div>
 			</Fragment>
 		);
 	},
 
-	save() {
+	save( props ) {
+		props.attributes.validated = false;
 		return null;
 	},
 });
