@@ -31,6 +31,12 @@ class GutenbergRssFeed {
 			return;
 		}
 
+		$number_of_posts = 2;
+
+		if(!empty($data['numberOfPosts'])) {
+			$number_of_posts = intval($data['numberOfPosts']);
+		}
+
 		if(!$data['url']) {
 			self::show_message( __('Please set the URL of the RSS feed through the WordPress dashboard.', 'gutenberg-rss-feed') );
 		}
@@ -45,7 +51,7 @@ class GutenbergRssFeed {
 			return self::show_message( __('No feed items found.', 'gutenberg-rss-feed') );
 		}
 
-		$feed_items = $feed->get_items(0, 10);
+		$feed_items = $feed->get_items(0, $number_of_posts);
 
 		ob_start();
 		?>

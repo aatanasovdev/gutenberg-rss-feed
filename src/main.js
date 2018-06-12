@@ -5,7 +5,8 @@ const { Fragment } = wp.element;
 const { 
 	PanelBody,
 	TextControl,
-	Button,withState
+	Button,
+	withState
 } = wp.components;
 
 const {
@@ -17,6 +18,10 @@ const {
 
 export const edit = ( { attributes, className, setAttributes, setState, error, validated } ) => {
 	const { url, numberOfPosts } = attributes;
+
+	const onChangeNumber = newNumberOfPosts => {
+		setAttributes( { numberOfPosts: newNumberOfPosts } );
+	} 
 
 	const onChangeURL = newURL => {
 		setAttributes( { url: newURL } );
@@ -56,7 +61,7 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 					value={ url }
 					type="url"
 					onChange={ onChangeURL }
-				/>
+				/>		
 				<Button
 					isLarge
 					onClick={ validateURL }
@@ -65,6 +70,14 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 				</Button>
 				{ error && <p>{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
 				{ !error && validated && <p>{ __( 'Feed validated successfully.' ) }</p> }
+				<TextControl
+					label={ __( 'Number of posts' ) }
+					placeholder={ __( 'Number' ) }
+					value={ numberOfPosts }
+					type="number"
+					onChange={ onChangeNumber }
+				/>		
+
 
 			</div>
 		</Fragment>
@@ -84,7 +97,7 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 
 	attributes: {
 		numberOfPosts: {
-			type: 'string',
+			type: 'integer',
 		},		
 		url: {
 			type: 'string',
