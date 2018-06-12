@@ -2,7 +2,6 @@
 /*
  * Plugin Name: Gutenberg -- RSS feed
  * Version: 1.0
- * Text Domain: gutenberg-rss-feed
  * License: GPL2
 */
 
