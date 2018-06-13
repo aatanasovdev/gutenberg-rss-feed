@@ -83,18 +83,19 @@ class GutenbergRssFeed {
 
 		ob_start();
 		?>
-		<ul>
+		<ul class="custom_block_rss_feed_items">
 			<?php foreach($feed_items as $item) : ?>
-	            <li>
-	                <a target="_blank" href="<?php echo esc_url( $item->get_permalink() ); ?>" title="<?php printf( __( 'Posted %s', 'gutenberg-rss-feed' ), $item->get_date('j F Y | g:i a') ); ?>">
+	            <li class="custom_block_rss_feed_item">
+	                <a class="custom_block_rss_feed_item_link" target="_blank" href="<?php echo esc_url( $item->get_permalink() ); ?>" title="<?php printf( __( 'Posted %s', 'gutenberg-rss-feed' ), $item->get_date('j F Y | g:i a') ); ?>">
 	                    <?php echo esc_html( $item->get_title() ); ?>
 	                </a>
 	            </li>
 			<?php endforeach; ?>
 		</ul>
 		<?php
-		return ob_get_clean();
+		$output = ob_get_clean();
 
+		return apply_filters('custom_block_rss_feed_frontend_output', $output);
 	}
 
 	/**

@@ -1,7 +1,4 @@
-/**
- * WordPress dependencies
- */
-
+// WordPress dependencies
 const { __ } = wp.i18n;
 
 const { Fragment } = wp.element;
@@ -21,10 +18,7 @@ const {
 	source
 } = wp.blocks;
 
-/**
- * Internal dependencies
- */
-
+//  Import Styling
 import './editor.scss';
 
 // Show form fields for configuring an RSS feed that will be rendered on the front-end.
