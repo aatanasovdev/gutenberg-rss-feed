@@ -119,7 +119,7 @@ class GutenbergRssFeed {
 	}
 
 	/**
-	 * Register a custom WP REST API endpoint for validating the added URL to the back-end.
+	 * Register a custom WP REST API endpoint for validating an added FEED URL to the back-end.
 	 *
 	 * @since 0.1
 	 */	

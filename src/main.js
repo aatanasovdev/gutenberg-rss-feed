@@ -21,6 +21,11 @@ const {
 	source
 } = wp.blocks;
 
+/**
+ * Internal dependencies
+ */
+
+import './editor.scss';
 
 // Show form fields for configuring an RSS feed that will be rendered on the front-end.
 export const edit = ( { attributes, className, setAttributes, setState, error, validated } ) => {
@@ -62,7 +67,7 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 			<div				
 				className={ className }
 			>
-				<div class="components-base-control">
+				<div class="custom-block-section">
 					<TextControl
 						label={ __( 'Feed URL' ) }
 						placeholder={ __( 'Type the URL of your RSS feed.' ) }
@@ -76,10 +81,10 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 						type="submit">
 						{ __( 'Validate' ) }
 					</Button>
-					{ error && <p>{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
-					{ !error && validated && <p>{ __( 'Feed validated successfully.' ) }</p> }
+					{ error && <p class="block-error-message">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
+					{ !error && validated && <p class="block-success-message">{ __( 'Feed validated successfully.' ) }</p> }
 				</div>
-				<div class="components-base-control">
+				<div class="custom-block-section">
 					<RangeControl
 						label={ __( 'Number of posts to be shown on the front-end' ) }
 						value={ numberOfPosts }
