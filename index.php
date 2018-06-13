@@ -1,12 +1,24 @@
 <?php
 /*
  * Plugin Name: Gutenberg -- RSS feed
- * Version: 1.0
+ * Version: 0.1
+ * Description: A Gutenberg block that displays posts from an RSS feed.
+ * Author: Aleksandar Atanasov
  * License: GPL2
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class GutenbergRssFeed {
-	
+
+	/**
+	 * Enable the custom Gutenberg block.
+	 *
+	 * @since 0.1
+	 * @return mixed
+	 */	
 	static function init() {
 
 		if(!self::check_gutenberg()) {			
@@ -17,6 +29,11 @@ class GutenbergRssFeed {
 		self::register_custom_endpoint();
 	}
 
+	/**
+	 * Register the block and load the back-end JavaScript code.
+	 *
+	 * @since 0.1
+	 */	
 	static function register_block() {
 		wp_register_script(
 			'gutenberg-block-rss-feed',
@@ -30,6 +47,13 @@ class GutenbergRssFeed {
 		) );		
 	}
 
+	/**
+	 * Render the RSS feed on the front-end.
+	 *
+	 * @since 0.1
+	 * @param array $data
+	 * @return mixed
+	 */	
 	static function gutenberg_rss_feed_render($data) {
 		if(is_admin()) {
 			return;
@@ -73,6 +97,13 @@ class GutenbergRssFeed {
 
 	}
 
+	/**
+	 * Display a message on the front-end.
+	 *
+	 * @since 0.1
+	 * @param string $text
+	 * @return string
+	 */	
 	static function show_message($text) {
 		return $text;
 	}
@@ -87,6 +118,11 @@ class GutenbergRssFeed {
 		return false;
 	}
 
+	/**
+	 * Register a custom WP REST API endpoint for validating the added URL to the back-end.
+	 *
+	 * @since 0.1
+	 */	
 	static function register_custom_endpoint() {
 		add_action( 'rest_api_init', function () {
 
@@ -114,6 +150,13 @@ class GutenbergRssFeed {
 		} );		
 	}
 
+	/**
+	 * Validate a given URL if it si a correct RSS feed.
+	 *
+	 * @param array $data
+	 * @return boolean
+	 * @since 0.1
+	 */	
 	static function validate_feed_url_endpoint($data) {
 		$validated['success'] = false;
 

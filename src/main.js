@@ -1,3 +1,7 @@
+/**
+ * WordPress dependencies
+ */
+
 const { __ } = wp.i18n;
 
 const { Fragment } = wp.element;
@@ -17,6 +21,8 @@ const {
 	source
 } = wp.blocks;
 
+
+// Show form fields for configuring an RSS feed that will be rendered on the front-end.
 export const edit = ( { attributes, className, setAttributes, setState, error, validated } ) => {
 	const { url, numberOfPosts } = attributes;
 
@@ -75,7 +81,7 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 				</div>
 				<div class="components-base-control">
 					<RangeControl
-						label={ __( 'Number of posts' ) }
+						label={ __( 'Number of posts to be shown on the front-end' ) }
 						value={ numberOfPosts }
 						min='1'
 						max='50'
@@ -87,6 +93,7 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 	);
 }
 
+// Rendering in PHP
 export const save = ( props ) => {
 	return null;
 }
@@ -106,6 +113,7 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 			type: 'string',
 		}
 	},
+
 	edit: withState( { validated: false, error: false } ) ( edit ),
 
 	save: save,
