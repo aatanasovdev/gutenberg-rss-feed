@@ -8,7 +8,11 @@
 class GutenbergRssFeed {
 	
 	static function init() {
-		self::check_gutenberg();
+
+		if(!self::check_gutenberg()) {			
+			return;
+		}
+
 		self::register_block();
 		self::register_custom_endpoint();
 	}
@@ -31,7 +35,7 @@ class GutenbergRssFeed {
 			return;
 		}
 
-		$number_of_posts = 2;
+		$number_of_posts = 10;
 
 		if(!empty($data['numberOfPosts'])) {
 			$number_of_posts = intval($data['numberOfPosts']);
@@ -74,7 +78,13 @@ class GutenbergRssFeed {
 	}
 
 	static function check_gutenberg() {
-		// Require Gutenberg to be installed
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+		if( is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	static function register_custom_endpoint() {

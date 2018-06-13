@@ -6,7 +6,8 @@ const {
 	PanelBody,
 	TextControl,
 	Button,
-	withState
+	withState,
+	RangeControl
 } = wp.components;
 
 const {
@@ -55,30 +56,32 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 			<div				
 				className={ className }
 			>
-				<TextControl
-					label={ __( 'Feed URL' ) }
-					placeholder={ __( 'Type the URL of your RSS feed.' ) }
-					value={ url }
-					type="url"
-					onChange={ onChangeURL }
-				/>		
-				<Button
-					isLarge
-					onClick={ validateURL }
-					type="submit">
-					{ __( 'Validate' ) }
-				</Button>
-				{ error && <p>{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
-				{ !error && validated && <p>{ __( 'Feed validated successfully.' ) }</p> }
-				<TextControl
-					label={ __( 'Number of posts' ) }
-					placeholder={ __( 'Number' ) }
-					value={ numberOfPosts }
-					type="number"
-					onChange={ onChangeNumber }
-				/>		
-
-
+				<div class="components-base-control">
+					<TextControl
+						label={ __( 'Feed URL' ) }
+						placeholder={ __( 'Type the URL of your RSS feed.' ) }
+						value={ url }
+						type="url"
+						onChange={ onChangeURL }
+					/>		
+					<Button
+						isLarge
+						onClick={ validateURL }
+						type="submit">
+						{ __( 'Validate' ) }
+					</Button>
+					{ error && <p>{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
+					{ !error && validated && <p>{ __( 'Feed validated successfully.' ) }</p> }
+				</div>
+				<div class="components-base-control">
+					<RangeControl
+						label={ __( 'Number of posts' ) }
+						value={ numberOfPosts }
+						min='1'
+						max='50'
+						onChange={ onChangeNumber }
+					/>		
+				</div>
 			</div>
 		</Fragment>
 	);
