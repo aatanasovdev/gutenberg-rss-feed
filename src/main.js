@@ -27,7 +27,7 @@ import './editor.scss';
 
 // Show form fields for configuring an RSS feed that will be rendered on the front-end.
 export const edit = ( { attributes, className, setAttributes, setState, error, validated } ) => {
-	const { url, numberOfPosts, showDescription, showDate, showThumbnail } = attributes;
+	const { url, numberOfPosts, showDescription, showDate } = attributes;
 
 	console.log(showDescription);
 
@@ -145,11 +145,7 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 		showDate: {
 			type: 'boolean',
 			default: false
-		},
-		showThumbnail: {
-			type: 'boolean',
-			default: false
-		}						
+		}
 	},
 
 	edit: withState( { validated: false, error: false } ) ( edit ),
