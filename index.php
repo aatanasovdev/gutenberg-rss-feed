@@ -7,11 +7,17 @@
  * License: GPL2
 */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
 class GutenbergRssFeed {
+
+	/**
+	 * @var string
+	 * @since 0.1
+	 */
+	static $plugin_prefix = 'custom_block_rss_feed';
 
 	/**
 	 * Enable the custom Gutenberg block.
@@ -65,37 +71,67 @@ class GutenbergRssFeed {
 			$number_of_posts = intval($data['numberOfPosts']);
 		}
 
-		if(!$data['url']) {
-			self::show_message( __('Please set the URL of the RSS feed through the WordPress dashboard.', 'gutenberg-rss-feed') );
+		if(empty($data['url'])) {
+			self::show_message( __('Please set the URL of the RSS feed through the WordPress dashboard.') );
 		}
 
 		$feed = fetch_feed($data['url']);
 
 		if(is_wp_error($feed) || isset($feed->errors)) {
-			return self::show_message( __('Please make sure the provided URL is a valid feed.', 'gutenberg-rss-feed') );
+			return self::show_message( __('Please make sure the provided URL is a valid feed.') );
 		}
 
 		if(isset($feed->get_item_quantity) && !$feed->get_item_quantity()) {
-			return self::show_message( __('No feed items found.', 'gutenberg-rss-feed') );
+			return self::show_message( __('No feed items found.') );
 		}
 
 		$feed_items = $feed->get_items(0, $number_of_posts);
 
+		$date_format = get_option('date_format') . ' | ' . get_option('time_format') ;
+
+		do_action(self::add_plugin_prefix_to_string('before_items', true));
+
 		ob_start();
 		?>
-		<ul class="custom_block_rss_feed_items">
+		<div class="<?php self::add_plugin_prefix_to_string('items'); ?>">
+
 			<?php foreach($feed_items as $item) : ?>
-	            <li class="custom_block_rss_feed_item">
-	                <a class="custom_block_rss_feed_item_link" target="_blank" href="<?php echo esc_url( $item->get_permalink() ); ?>" title="<?php printf( __( 'Posted %s', 'gutenberg-rss-feed' ), $item->get_date('j F Y | g:i a') ); ?>">
-	                    <?php echo esc_html( $item->get_title() ); ?>
-	                </a>
-	            </li>
+
+				<?php do_action(self::add_plugin_prefix_to_string('before_item', true)); ?>
+
+	            <div class="<?php self::add_plugin_prefix_to_string('item'); ?>">
+
+	                <h3>
+	                	<a class="<?php self::add_plugin_prefix_to_string('item_link'); ?>" target="_blank" href="<?php echo esc_url( $item->get_permalink() ); ?>" title="<?php printf( __('Posted %s'), $item->get_date($date_format) ); ?>">
+	                    	<?php echo esc_html( $item->get_title() ); ?>
+	                	</a>
+	                </h3>
+
+	                <?php if(isset($data['showDate']) && $data['showDate'] ) : ?>
+						<p class="custom_block_rss_feed_item_date"><?php echo $item->get_date($date_format); ?></p>
+	            	<?php endif; ?>
+					
+					<?php if(isset($data['showDescription']) && $data['showDescription'] && !empty($item->get_description()) ) : ?>
+
+						<p class="<?php self::add_plugin_prefix_to_string('item_description'); ?>">
+							<?php echo $item->get_description() ?>
+						</p>
+
+					<?php endif; ?>
+
+					<?php do_action(self::add_plugin_prefix_to_string('after_item', true)); ?>
+
+	            </div>
+
 			<?php endforeach; ?>
-		</ul>
+
+		</div>
 		<?php
 		$output = ob_get_clean();
 
-		return apply_filters('custom_block_rss_feed_frontend_output', $output);
+		do_action(self::add_plugin_prefix_to_string('after_items', true));
+
+		return apply_filters(self::add_plugin_prefix_to_string('frontend_output', true), $output);
 	}
 
 	/**
@@ -152,7 +188,7 @@ class GutenbergRssFeed {
 	}
 
 	/**
-	 * Validate a given URL if it si a correct RSS feed.
+	 * Validate a given URL if it is a correct RSS feed.
 	 *
 	 * @param array $data
 	 * @return boolean
@@ -164,13 +200,35 @@ class GutenbergRssFeed {
 		if(!empty($data['url'])) {
 			$feed = fetch_feed($data['url']);
 
-			if(!is_wp_error($feed) || !isset($feed->errors)) {
+			if(!is_wp_error($feed) && !isset($feed->errors)) {
 				$validated['success'] = true;
 			}
 		}
 
 		return wp_send_json($validated);
 	}
+
+	/**
+	 * Display or return a string with the plugin's prefix
+	 *
+	 * @param string $string
+	 * @param boolean $return
+	 * @return string
+	 */	
+	static function add_plugin_prefix_to_string($string, $return = false) 
+	{	
+		if(empty($string)) {
+			return '';
+		}
+
+		$string = self::$plugin_prefix . '_' . $string;
+
+		if($return) {
+			return $string;
+		}
+
+		echo $string;
+	}	
 
 }
 

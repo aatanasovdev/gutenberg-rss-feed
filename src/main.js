@@ -8,22 +8,28 @@ const {
 	TextControl,
 	Button,
 	withState,
+	ToggleControl,
 	RangeControl
 } = wp.components;
 
 const {
 	registerBlockType,
-	InspectorControls,
 	UrlInput,
 	source
 } = wp.blocks;
+
+const {
+	InspectorControls
+} = wp.editor;
 
 //  Import Styling
 import './editor.scss';
 
 // Show form fields for configuring an RSS feed that will be rendered on the front-end.
 export const edit = ( { attributes, className, setAttributes, setState, error, validated } ) => {
-	const { url, numberOfPosts } = attributes;
+	const { url, numberOfPosts, showDescription, showDate, showThumbnail } = attributes;
+
+	console.log(showDescription);
 
 	const onChangeNumber = newNumberOfPosts => {
 		setAttributes( { numberOfPosts: newNumberOfPosts } );
@@ -32,6 +38,14 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 	const onChangeURL = newURL => {
 		setAttributes( { url: newURL } );
 	};			
+
+	const onChangeShowDescription = () => {
+		setAttributes( { showDescription: !showDescription } );
+	};
+
+	const onChangeShowDate = () => {
+		setAttributes( { showDate: !showDate } );
+	};
 
 	const validateURL = () => {
 		setState( { error: false, validated: false } );
@@ -78,15 +92,27 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 					{ error && <p class="block-error-message">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
 					{ !error && validated && <p class="block-success-message">{ __( 'Feed validated successfully.' ) }</p> }
 				</div>
-				<div class="custom-block-section">
-					<RangeControl
-						label={ __( 'Number of posts to be shown on the front-end' ) }
-						value={ numberOfPosts }
-						min='1'
-						max='50'
-						onChange={ onChangeNumber }
-					/>		
-				</div>
+				<InspectorControls>
+					<PanelBody title={ __( 'RSS Feed Settings' ) }>
+						<RangeControl
+							label={ __( 'Number of posts to be shown on the front-end' ) }
+							value={ numberOfPosts }
+							min='1'
+							max='50'
+							onChange={ onChangeNumber }
+						/>
+						<ToggleControl
+							label={ __('Display post description') }
+							checked={ showDescription }
+							onChange={ onChangeShowDescription }
+						/>
+						<ToggleControl
+							label={ __('Display post date') }
+							checked={ showDate}
+							onChange={ onChangeShowDate }
+						/>													
+					</PanelBody>
+				</InspectorControls>
 			</div>
 		</Fragment>
 	);
@@ -107,10 +133,23 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 	attributes: {
 		numberOfPosts: {
 			type: 'integer',
+			default: 10
 		},		
-		url: {
-			type: 'string',
-		}
+		url: {			
+			type: 'string'
+		},
+		showDescription: {
+			type: 'boolean',
+			default: false
+		},
+		showDate: {
+			type: 'boolean',
+			default: false
+		},
+		showThumbnail: {
+			type: 'boolean',
+			default: false
+		}						
 	},
 
 	edit: withState( { validated: false, error: false } ) ( edit ),
