@@ -60,7 +60,7 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 		}).done( ( response ) => {
 			if(!response.success) {
 
-				setState( { error: true } );
+				setState( { error: true } );				
 				return;
 			} 
 			

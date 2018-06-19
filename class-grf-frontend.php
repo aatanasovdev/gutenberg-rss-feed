@@ -5,6 +5,9 @@
  * @since 0.1
  */
 class GRF_Frotnend {
+
+	static private $data;
+
 	/**
 	 * Render the RSS feed on the front-end.
 	 *
@@ -12,10 +15,12 @@ class GRF_Frotnend {
 	 * @param array $data
 	 * @return mixed
 	 */	
-	static function render($data) {
+	static function render($data) {		
 		if(is_admin()) {
 			return;
 		}
+
+		self::$data = $data;
 
 		$number_of_posts = 10;
 
@@ -27,7 +32,7 @@ class GRF_Frotnend {
 			return __('Please set the URL of the RSS feed through the WordPress dashboard.');
 		}
 
-		$feed = fetch_feed($data['url']);
+		$feed = GRF_Helper::fetch_feed($data['url']);
 
 		if(is_wp_error($feed) || isset($feed->errors)) {
 			return __('Please make sure the provided URL is a valid feed.');

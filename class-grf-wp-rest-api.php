@@ -48,7 +48,7 @@ class GRF_WP_Rest_API {
 		$validated['success'] = false;
 
 		if(!empty($data['url'])) {
-			$feed = fetch_feed($data['url']);
+			$feed = GRF_Helper::fetch_feed($data['url']);
 
 			if(!is_wp_error($feed) && !isset($feed->errors)) {
 				$validated['success'] = true;
