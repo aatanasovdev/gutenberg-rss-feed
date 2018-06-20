@@ -4,7 +4,7 @@
  *
  * @since 0.1
  */
-class GRF_Frotnend {
+class GRF_Frontend {
 	/**
 	 * Feed object.
 	 *

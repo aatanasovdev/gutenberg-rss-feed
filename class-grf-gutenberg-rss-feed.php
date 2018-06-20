@@ -36,7 +36,7 @@ class GRS_Gutenberg_Rss_Feed {
 
 		register_block_type( 'gutenberg-widget-block/rss-feed', array(
 			'editor_script' => 'gutenberg-block-rss-feed',
-			'render_callback' => array('GRF_Frotnend', 'render'),
+			'render_callback' => array('GRF_Frontend', 'render'),
 		) );		
 	}
 
