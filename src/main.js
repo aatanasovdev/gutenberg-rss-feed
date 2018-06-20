@@ -23,7 +23,7 @@ const {
 } = wp.editor;
 
 //  Import Styling
-import './editor.scss';
+import './editor.css';
 
 // Show form fields for configuring an RSS feed that will be rendered on the front-end.
 export const edit = ( { attributes, className, setAttributes, setState, error, validated } ) => {
