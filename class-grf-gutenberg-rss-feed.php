@@ -25,6 +25,7 @@ class GRS_Gutenberg_Rss_Feed {
 	 * Register the block and load the back-end JavaScript code.
 	 *
 	 * @since 0.1
+	 * @return void
 	 */	
 	static function register_block() {
 		wp_register_script(
@@ -39,6 +40,12 @@ class GRS_Gutenberg_Rss_Feed {
 		) );		
 	}
 
+	/**
+	 * Check if the Gutenberg plugin is activated.
+	 *
+	 * @since 0.1
+	 * @return boolean
+	 */		
 	static function check_gutenberg() {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 

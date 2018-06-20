@@ -29,8 +29,6 @@ import './editor.scss';
 export const edit = ( { attributes, className, setAttributes, setState, error, validated } ) => {
 	const { url, numberOfPosts, showDescription, showDate } = attributes;
 
-	console.log(showDescription);
-
 	const onChangeNumber = newNumberOfPosts => {
 		setAttributes( { numberOfPosts: newNumberOfPosts } );
 	} 

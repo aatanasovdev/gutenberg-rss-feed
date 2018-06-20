@@ -5,8 +5,29 @@
  * @since 0.1
  */
 class GRF_Frotnend {
+	/**
+	 * Feed object.
+	 *
+	 * @since 0.1
+	 * @var object
+	 */	
+	static private $feed;
 
+	/**
+	 * The data of the attributes used on the back-end.
+	 *
+	 * @since 0.1
+	 * @var array
+	 */	
 	static private $data;
+
+	/**
+	 * Default number of posts.
+	 *
+	 * @since 0.1
+	 * @var integer
+	 */	
+	static private $number_of_posts = 10;
 
 	/**
 	 * Render the RSS feed on the front-end.
@@ -22,27 +43,51 @@ class GRF_Frotnend {
 
 		self::$data = $data;
 
-		$number_of_posts = 10;
-
-		if(!empty($data['numberOfPosts'])) {
-			$number_of_posts = intval($data['numberOfPosts']);
+		if(!empty(self::$data['url'])) {
+			self::$feed = GRF_Helper::fetch_feed(self::$data['url']);	
 		}
 
-		if(empty($data['url'])) {
+		$error = self::validate();
+
+		if(!empty($error)) {
+			return $error;
+		}
+
+		return self::output();
+	}
+
+	/**
+	 * Validate the feed and prepare error messages if any.
+	 *
+	 * @return string
+	 */	
+	static function validate() {
+		if(empty(self::$data['url'])) {
 			return __('Please set the URL of the RSS feed through the WordPress dashboard.');
-		}
+		}		
 
-		$feed = GRF_Helper::fetch_feed($data['url']);
-
-		if(is_wp_error($feed) || isset($feed->errors)) {
+		if(is_wp_error(self::$feed) || isset(self::$feed->errors)) {
 			return __('Please make sure the provided URL is a valid feed.');
 		}
 
-		if(isset($feed->get_item_quantity) && !$feed->get_item_quantity()) {
+		if(isset(self::$feed->get_item_quantity) && !self::$feed->get_item_quantity()) {
 			return __('No feed items found.');
 		}
 
-		$feed_items = $feed->get_items(0, $number_of_posts);
+		return false;
+	}	
+
+	/**
+	 * Prepare the html markup of the feed.
+	 *
+	 * @return string
+	 */	
+	static function output() {	
+		if(!empty(self::$data['numberOfPosts'])) {
+			self::$number_of_posts = intval(self::$data['numberOfPosts']);
+		}
+
+		$feed_items = self::$feed->get_items(0, self::$number_of_posts);
 
 		$date_format = get_option('date_format') . ' | ' . get_option('time_format') ;
 
@@ -64,14 +109,14 @@ class GRF_Frotnend {
 	                	</a>
 	                </h3>
 
-	                <?php if(isset($data['showDate']) && $data['showDate'] ) : ?>
+	                <?php if(isset(self::$data['showDate']) && self::$data['showDate'] ) : ?>
 						<p class="grf_item_date"><?php echo $item->get_date($date_format); ?></p>
 	            	<?php endif; ?>
 					
-					<?php if(isset($data['showDescription']) && $data['showDescription'] && !empty($item->get_description()) ) : ?>
+					<?php if(isset(self::$data['showDescription']) && self::$data['showDescription'] && !empty($item->get_description()) ) : ?>
 
 						<p class="grf_item_description">
-							<?php echo $item->get_description() ?>
+							<?php echo $item->get_description(); ?>
 						</p>
 
 					<?php endif; ?>
@@ -88,6 +133,6 @@ class GRF_Frotnend {
 
 		do_action('grf_after_items');
 
-		return apply_filters('grf_frontend_output', $output);
-	}
+		return apply_filters('grf_frontend_output', $output);		
+	}	
 }
