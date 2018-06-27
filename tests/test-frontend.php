@@ -2,7 +2,7 @@
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test Frontend class methods.
+ * Test Frontend output.
  */
 class FrontendTestRender extends TestCase {
 	/**
