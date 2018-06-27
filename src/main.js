@@ -13,9 +13,7 @@ const {
 } = wp.components;
 
 const {
-	registerBlockType,
-	UrlInput,
-	source
+	registerBlockType
 } = wp.blocks;
 
 const {

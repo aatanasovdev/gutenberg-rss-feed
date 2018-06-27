@@ -104,7 +104,7 @@ class GRF_Frontend {
 	            <div class="grf_item">
 
 	                <h3 class="grf_item_title">
-	                	<a class="grf_item_link" target="_blank" href="<?php echo esc_url( $item->get_permalink() ); ?>" title="<?php printf( __('Posted %s'), $item->get_date($date_format) ); ?>">
+	                	<a class="grf_item_link" target="_blank" href="<?php echo esc_url( $item->get_permalink() ); ?>">
 	                    	<?php echo esc_html( $item->get_title() ); ?>
 	                	</a>
 	                </h3>
