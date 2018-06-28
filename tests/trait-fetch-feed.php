@@ -4,6 +4,7 @@
  * Handle fetching a feed.
  */
 trait FetchFeed {
+	
 	/**
 	 * Example feed URL. Expected to be a valid feed with at least 3 posts and all of them have titles/descriptions.
 	 *
@@ -51,7 +52,7 @@ trait FetchFeed {
      *
 	 * @return void
 	 */		
-    protected function setUp() {
+    protected function feed_setup() {
         self::$output = self::get_output();         
 
         $feed = fetch_feed(self::$feed_url);

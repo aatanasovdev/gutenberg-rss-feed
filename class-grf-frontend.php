@@ -5,6 +5,7 @@
  * @since 0.1
  */
 class GRF_Frontend {
+	
 	/**
 	 * Feed object.
 	 *

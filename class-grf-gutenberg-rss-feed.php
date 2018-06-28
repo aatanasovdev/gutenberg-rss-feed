@@ -5,6 +5,7 @@
  * @since 0.1
  */
 class GRS_Gutenberg_Rss_Feed {
+	
 	/**
 	 * Enable the custom Gutenberg block.
 	 *

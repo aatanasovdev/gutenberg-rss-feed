@@ -5,7 +5,17 @@ use PHPUnit\Framework\TestCase;
  * Test Frontend output.
  */
 class FrontendTestRender extends TestCase {
+	
 	use FetchFeed;
+
+	/**
+	 * Set up the initial data.
+     *
+	 * @return void
+	 */		
+    protected function SetUp() {
+    	self::feed_setup();
+    }
 
 	/**
 	 * Test if the output contains HTML code.

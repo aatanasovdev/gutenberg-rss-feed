@@ -5,6 +5,7 @@
  * @since 0.1
  */
 class GRF_WP_Rest_API {
+	
 	/**
 	 * Register a custom WP REST API endpoint for validating an added FEED URL to the back-end.
 	 *
