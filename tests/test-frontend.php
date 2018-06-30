@@ -18,6 +18,15 @@ class FrontendTestRender extends TestCase {
     }
 
 	/**
+	 * Test if the feed is not empty.
+     *
+	 * @return void	 
+	 */
+	public function test_fetch_feed() {
+		$this->assertNotEmpty(GRF_Helper::fetch_feed(self::$feed_url));		
+	}
+
+	/**
 	 * Test if the output contains HTML code.
      *
 	 * @return void	 
