@@ -114,7 +114,7 @@ class GRF_Frontend {
 						<p class="grf_item_date"><?php echo $item->get_date($date_format); ?></p>
 	            	<?php endif; ?>
 					
-					<?php if(isset(self::$data['showDescription']) && self::$data['showDescription'] && !empty($item->get_description()) ) : ?>
+					<?php if(isset(self::$data['showDescription']) && self::$data['showDescription'] && method_exists($item, 'get_description') && $item->get_description()) : ?>
 
 						<p class="grf_item_description">
 							<?php echo $item->get_description(); ?>
