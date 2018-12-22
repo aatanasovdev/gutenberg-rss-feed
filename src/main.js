@@ -3,22 +3,21 @@ const { __ } = wp.i18n;
 
 const { Fragment } = wp.element;
 
+const { registerBlockType } = wp.blocks;
+
+const { InspectorControls } = wp.editor;
+
+const { withState } = wp.compose;
+
+const { apiFetch } = wp;
+
 const { 
 	PanelBody,
 	TextControl,
 	Button,
-	withState,
 	ToggleControl,
 	RangeControl
 } = wp.components;
-
-const {
-	registerBlockType
-} = wp.blocks;
-
-const {
-	InspectorControls
-} = wp.editor;
 
 //  Import Styling
 import './editor.css';
@@ -45,15 +44,11 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 
 	const validateURL = () => {
 		setState( { error: false, validated: false } );
-
-		wp.apiRequest({
-			url: wpApiSettings.validateFeedUrl,
-			data: {
-				url: url
-			},
-			type: 'GET',
-			dataType: 'json'
-		}).done( ( response ) => {
+		
+		apiFetch( { 
+			path: '/gutenbergrssfeed/v2/validateFeedUrl/?url=' + url,
+			method: 'GET'
+		}).then( ( response ) => {
 			if(!response.success) {
 
 				setState( { error: true } );				
@@ -61,8 +56,6 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 			} 
 			
 			setState( { validated: true } );
-		}).fail( () => {
-			alert('Something went wrong!')
 		});
 	};
 
@@ -72,6 +65,7 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 				className={ className }
 			>
 				<div class="custom-block-section">
+
 					<TextControl
 						label={ __( 'Feed URL' ) }
 						placeholder={ __( 'Type the URL of your RSS feed.' ) }
@@ -85,6 +79,7 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 						type="submit">
 						{ __( 'Validate' ) }
 					</Button>
+					{ url && <p>{ __('The feed output is only visible on the front-end') }</p> }
 					{ error && <p class="block-error-message">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
 					{ !error && validated && <p class="block-success-message">{ __( 'Feed validated successfully.' ) }</p> }
 				</div>
@@ -120,7 +115,7 @@ export const save = ( props ) => {
 }
 
 registerBlockType('gutenberg-widget-block/rss-feed', {
-	title: 'RSS Feed',
+	title: __('RSS Feed'),
 
 	icon: 'rss',
 

@@ -20,6 +20,12 @@
   },
   "homepage": "https://github.com/aatanasovdev/gutenberg-rss-feed#readme",
   "devDependencies": {
+    "@wordpress/api-fetch": "^2.2.6",
+    "@wordpress/blocks": "^6.0.4",
+    "@wordpress/components": "^7.0.4",
+    "@wordpress/compose": "^3.0.0",
+    "@wordpress/editor": "^9.0.6",
+    "@wordpress/i18n": "^3.1.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

@@ -13,7 +13,6 @@ class GRS_Gutenberg_Rss_Feed {
 	 * @return mixed
 	 */	
 	static function init() {
-
 		if(!self::check_gutenberg()) {			
 			return;
 		}
@@ -32,7 +31,7 @@ class GRS_Gutenberg_Rss_Feed {
 		wp_register_script(
 			'gutenberg-block-rss-feed',
 			plugins_url( 'dist/bundle.js', __FILE__ ),
-			array( 'wp-blocks', 'wp-element' )
+			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-compose' )
 		);
 
 		register_block_type( 'gutenberg-widget-block/rss-feed', array(
@@ -50,7 +49,7 @@ class GRS_Gutenberg_Rss_Feed {
 	static function check_gutenberg() {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
-		if( is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
+		if( function_exists( 'register_block_type' ) ) {
 			return true;
 		}
 

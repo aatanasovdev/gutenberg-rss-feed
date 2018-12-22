@@ -19,12 +19,6 @@ class GRF_WP_Rest_API {
 				'name' => '/validateFeedUrl/'
 			);
 
-			wp_localize_script( 'wp-api', 'wpApiSettings', array(
-			    'root' => esc_url_raw( rest_url() ),
-			    'validateFeedUrl' => esc_url_raw( rest_url() . $route_settings['path'] . $route_settings['name'] ),
-			    'nonce' => wp_create_nonce( 'wp_rest' )
-			) );
-
 			register_rest_route( $route_settings['path'], $route_settings['name'], array(
 				'methods' => 'GET',
 				'args' => array(
@@ -55,7 +49,7 @@ class GRF_WP_Rest_API {
 				$validated['success'] = true;
 			}
 		}
-
+		
 		return wp_send_json($validated);
 	}	
 }
