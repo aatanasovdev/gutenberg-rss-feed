@@ -47,8 +47,6 @@ class GRS_Gutenberg_Rss_Feed {
 	 * @return boolean
 	 */		
 	static function check_gutenberg() {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
 		if( function_exists( 'register_block_type' ) ) {
 			return true;
 		}
