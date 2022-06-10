@@ -30,7 +30,7 @@ class GRS_Gutenberg_Rss_Feed {
 	static function register_block() {
 		wp_register_script(
 			'gutenberg-block-rss-feed',
-			plugins_url( 'dist/bundle.js', __FILE__ ),
+			plugins_url( 'build/index.js', __FILE__ ),
 			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-compose' )
 		);
 
