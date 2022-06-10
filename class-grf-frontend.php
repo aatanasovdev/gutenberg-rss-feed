@@ -99,7 +99,6 @@ class GRF_Frontend {
 		<div class="grf_items">
 
 			<?php foreach($feed_items as $item) : ?>
-
 				<?php do_action('grf_before_item'); ?>
 
 	            <div class="grf_item">
@@ -118,6 +117,15 @@ class GRF_Frontend {
 
 						<p class="grf_item_description">
 							<?php echo $item->get_description(); ?>
+						</p>
+
+					<?php endif; ?>
+
+
+					<?php if(isset(self::$data['showContent']) && self::$data['showContent'] && method_exists($item, 'get_content') && $item->get_content()) : ?>
+
+						<p class="grf_item_description">
+							<?php echo $item->get_content(); ?>
 						</p>
 
 					<?php endif; ?>

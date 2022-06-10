@@ -24,7 +24,7 @@ import './editor.css';
 
 // Show form fields for configuring an RSS feed that will be rendered on the front-end.
 export const edit = ( { attributes, className, setAttributes, setState, error, validated } ) => {
-	const { url, numberOfPosts, showDescription, showDate } = attributes;
+	const { url, numberOfPosts, showDescription, showDate, showContent } = attributes;
 
 	const onChangeNumber = newNumberOfPosts => {
 		setAttributes( { numberOfPosts: newNumberOfPosts } );
@@ -41,6 +41,10 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 	const onChangeShowDate = () => {
 		setAttributes( { showDate: !showDate } );
 	};
+
+	const onChangeShowContent = () => {
+		setAttributes( { showContent: !showContent } );
+	};	
 
 	const validateURL = () => {
 		setState( { error: false, validated: false } );
@@ -74,12 +78,12 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 						onChange={ onChangeURL }
 					/>		
 					<Button
-						isLarge
+						variant="secondary"
 						onClick={ validateURL }
 						type="submit">
 						{ __( 'Validate' ) }
 					</Button>
-					{ url && <p>{ __('The feed output is only visible on the front-end') }</p> }
+					{ url && <p>{ __('The feed output is only visible on the front-end.') }</p> }
 					{ error && <p class="block-error-message">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
 					{ !error && validated && <p class="block-success-message">{ __( 'Feed validated successfully.' ) }</p> }
 				</div>
@@ -101,7 +105,12 @@ export const edit = ( { attributes, className, setAttributes, setState, error, v
 							label={ __('Display post date') }
 							checked={ showDate}
 							onChange={ onChangeShowDate }
-						/>													
+						/>	
+						<ToggleControl
+							label={ __('Display post content') }
+							checked={ showContent }
+							onChange={ onChangeShowContent }
+						/>	
 					</PanelBody>
 				</InspectorControls>
 			</div>
@@ -136,7 +145,11 @@ registerBlockType('gutenberg-widget-block/rss-feed', {
 		showDate: {
 			type: 'boolean',
 			default: false
-		}
+		},
+		showContent: {
+			type: 'boolean',
+			default: false
+		}		
 	},
 
 	edit: withState( { validated: false, error: false } ) ( edit ),
