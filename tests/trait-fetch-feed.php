@@ -55,8 +55,8 @@ trait FetchFeed {
     protected function feed_setup() {
         self::$output = self::get_output();         
 
-        $feed = fetch_feed(self::$feed_url);
-        self::$feed_items = $feed->get_items(0, 5);
+        $feed = fetch_feed( self::$feed_url );
+        self::$feed_items = $feed->get_items( 0, 5 );
     }
 
 	/**
@@ -81,6 +81,6 @@ trait FetchFeed {
 	 * @return mixed
 	 */	
 	static function get_output() {	
-		return GRF_Frontend::render(self::get_data());
+		return GRF_Frontend::render( self::get_data() );
 	}		
 }

@@ -34,9 +34,12 @@ class GRS_Gutenberg_Rss_Feed {
 			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-compose' )
 		);
 
-		register_block_type( 'gutenberg-widget-block/rss-feed', array(
+		register_block_type( 'gutenberg-widget-block/rss-feed' , array(
 			'editor_script' => 'gutenberg-block-rss-feed',
-			'render_callback' => array('GRF_Frontend', 'render'),
+			'render_callback' => array(
+				'GRF_Frontend', 
+				'render'
+			)
 		) );		
 	}
 
@@ -53,7 +56,4 @@ class GRS_Gutenberg_Rss_Feed {
 
 		return false;
 	}
-
-
-
 }

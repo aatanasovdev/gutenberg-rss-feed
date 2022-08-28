@@ -23,7 +23,7 @@ class FrontendTestRender extends TestCase {
 	 * @return void	 
 	 */
 	public function test_fetch_feed() {
-		$this->assertNotEmpty(GRF_Helper::fetch_feed(self::$feed_url));		
+		$this->assertNotEmpty( GRF_Helper::fetch_feed( self::$feed_url ) );		
 	}
 
 	/**
@@ -45,14 +45,14 @@ class FrontendTestRender extends TestCase {
 	 * @return void	 
 	 */
 	public function test_number_of_posts() {
-		$this->assertNotContains(self::$feed_items[1]->get_title(), self::$output);
+		$this->assertNotContains( self::$feed_items[1]->get_title(), self::$output );
 
 		self::$number_of_posts = 2;
 
 		$output = self::get_output();
 
-		$this->assertContains(self::$feed_items[1]->get_title(), $output);
-		$this->assertNotContains(self::$feed_items[2]->get_title(), $output);
+		$this->assertContains( self::$feed_items[1]->get_title(), $output );
+		$this->assertNotContains( self::$feed_items[2]->get_title(), $output );
 	}	
 
 	/**
@@ -79,7 +79,7 @@ class FrontendTestRender extends TestCase {
 	 * @return void	 
 	 */
 	public function test_showing_date() {
-		$date = self::$feed_items[0]->get_date(self::get_date_format());
+		$date = self::$feed_items[0]->get_date( self::get_date_format() );
 
 		$this->assertContains( $date, self::$output );
 
@@ -127,6 +127,6 @@ class FrontendTestRender extends TestCase {
 	 * @return string
 	 */	
 	static function get_date_format() {	
-		return get_option('date_format') . ' | ' . get_option('time_format');
+		return get_option( 'date_format') . ' | ' . get_option('time_format' );
 	}	
 }

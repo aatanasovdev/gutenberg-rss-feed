@@ -24,7 +24,7 @@ class GRF_WP_Rest_API {
 				'args' => array(
 					'url'
 				),				
-				'callback' => array(__CLASS__, 'validate_feed_url_endpoint'),
+				'callback' => array( __CLASS__, 'validate_feed_url_endpoint' ),
 				'permission_callback' => function () {
 					return current_user_can( 'edit_posts' );
 				}
