@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "aatanasov/rss-feed",
+    "title": "RSS Feed Block",
+    "icon": "rss",
+    "category": "widgets",
+    "description": "A block that pulls posts from an RSS feed.",
+    "keywords": [ "feed", "rss", "block", "gutenberg" ],
+    "version": "0.4",
+    "textdomain": "rss-feed",
+    "attributes": {
+        "numberOfPosts": {
+            "type": "integer",
+            "default": 10
+        },      
+        "url": {          
+            "type": "string"
+        },
+        "showDescription": {
+            "type": "boolean",
+            "default": false
+        },
+        "showDate": {
+            "type": "boolean",
+            "default": false
+        },
+        "showContent": {
+            "type": "boolean",
+            "default": false
+        }       
+    },    
+    "example": {
+        "attributes": {
+            "url": "https://wordpress.org/blog/"
+        }
+    },
+    "editorScript": "file:/build/index.js"
+}

@@ -12,7 +12,7 @@ class GRF_WP_Rest_API {
 	 * @since 0.1
 	 */	
 	static function validate_feed_url() {
-		add_action( 'rest_api_init', function () {
+		add_action( 'rest_api_init' , function () {
 
 			$route_settings = array(
 				'path' => 'gutenbergrssfeed/v2',

@@ -1,8 +1,8 @@
 <?php
 /*
- * Plugin Name: Gutenberg -- RSS feed
- * Version: 0.3
- * Description: A Gutenberg block that displays posts from an RSS feed.
+ * Plugin Name: RSS Feed Block
+ * Version: 0.4
+ * Description: A block that pulls posts from an RSS feed.
  * Author: Aleksandar Atanasov
  * License: GPL2
 */
