@@ -10,7 +10,7 @@ class GRF_WP_Rest_API {
 	 * Register a custom WP REST API endpoint for validating an added FEED URL to the back-end.
 	 *
 	 * @since 0.1
-	 */	
+	 */
 	static function validate_feed_url() {
 		add_action( 'rest_api_init' , function () {
 
@@ -23,13 +23,13 @@ class GRF_WP_Rest_API {
 				'methods' => 'GET',
 				'args' => array(
 					'url'
-				),				
+				),
 				'callback' => array( __CLASS__, 'validate_feed_url_endpoint' ),
 				'permission_callback' => function () {
 					return current_user_can( 'edit_posts' );
 				}
 			) );
-		} );		
+		} );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class GRF_WP_Rest_API {
 	 * @param array $data
 	 * @return boolean
 	 * @since 0.1
-	 */	
+	 */
 	static function validate_feed_url_endpoint($data) {
 		$validated['success'] = false;
 
@@ -51,5 +51,5 @@ class GRF_WP_Rest_API {
 		}
 		
 		return wp_send_json($validated);
-	}	
+	}
 }

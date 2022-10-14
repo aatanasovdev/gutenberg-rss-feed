@@ -11,9 +11,9 @@ class GRS_Gutenberg_Rss_Feed {
 	 *
 	 * @since 0.1
 	 * @return mixed
-	 */	
+	 */
 	static function init() {
-		if(!self::check_gutenberg()) {			
+		if(!self::check_gutenberg()) {
 			return;
 		}
 
@@ -26,14 +26,14 @@ class GRS_Gutenberg_Rss_Feed {
 	 *
 	 * @since 0.1
 	 * @return void
-	 */	
+	 */
 	static function register_block() {
 		register_block_type( __DIR__ , array(
 			'render_callback' => array(
 				'GRF_Frontend', 
 				'render'
 			)
-		) );		
+		) );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class GRS_Gutenberg_Rss_Feed {
 	 *
 	 * @since 0.1
 	 * @return boolean
-	 */		
+	 */
 	static function check_gutenberg() {
 		if( function_exists( 'register_block_type' ) ) {
 			return true;

@@ -11,8 +11,8 @@ class GRF_Helper {
 	 *
 	 * @param string $url
 	 * @return object
-	 */	
-	static function fetch_feed( $url ) {	
+	 */
+	static function fetch_feed( $url ) {
 		return fetch_feed( $url );
-	}	
+	}
 }

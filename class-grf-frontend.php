@@ -11,7 +11,7 @@ class GRF_Frontend {
 	 *
 	 * @since 0.1
 	 * @var object
-	 */	
+	 */
 	static private $feed;
 
 	/**
@@ -19,7 +19,7 @@ class GRF_Frontend {
 	 *
 	 * @since 0.1
 	 * @var array
-	 */	
+	 */
 	static private $data;
 
 	/**
@@ -27,7 +27,7 @@ class GRF_Frontend {
 	 *
 	 * @since 0.1
 	 * @var integer
-	 */	
+	 */
 	static private $number_of_posts = 10;
 
 	/**
@@ -36,8 +36,8 @@ class GRF_Frontend {
 	 * @since 0.1
 	 * @param array $data
 	 * @return mixed
-	 */	
-	static function render( $data ) {		
+	 */
+	static function render( $data ) {
 		if( is_admin() ) {
 			return;
 		}
@@ -45,7 +45,7 @@ class GRF_Frontend {
 		self::$data = $data;
 
 		if( ! empty( self::$data[ 'url' ] ) ) {
-			self::$feed = GRF_Helper::fetch_feed( self::$data[ 'url' ] );	
+			self::$feed = GRF_Helper::fetch_feed( self::$data[ 'url' ] );
 		}
 
 		$error = self::validate();
@@ -61,7 +61,7 @@ class GRF_Frontend {
 	 * Validate the feed and prepare error messages if any.
 	 *
 	 * @return string
-	 */	
+	 */
 	static function validate() {
 		if( empty( self::$data[ 'url' ] ) ) {
 			return __( 'Please set the URL of the RSS feed through the WordPress dashboard.' );
@@ -82,7 +82,7 @@ class GRF_Frontend {
 	 * Prepare the html markup of the feed.
 	 *
 	 * @return string
-	 */	
+	 */
 	static function output() {	
 		if( ! empty( self::$data[ 'numberOfPosts' ] ) ) {
 			self::$number_of_posts = intval( self::$data[ 'numberOfPosts' ] );
