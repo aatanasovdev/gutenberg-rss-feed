@@ -17,6 +17,11 @@ import {
 
 } from '@wordpress/components';	
 
+/**
+ * Internal dependencies
+ */
+import Message from './message';
+
 export default function edit( { attributes, setAttributes } ) {
 	const [ error, setError ] = useState( false );
 	const [ validated, setValidated ] = useState( false );
@@ -76,10 +81,8 @@ export default function edit( { attributes, setAttributes } ) {
 					onClick={ validateURL }
 					type="submit">
 					{ __( 'Fetch' ) }
-				</Button>
-				{ url && <p>{ __('The feed output is only visible on the front-end.') }</p> }
-				{ error && <p class="block-error-message">{ __( 'Sorry, either your feed is not a valid one or the URL is incorrect.' ) }</p> }
-				{ !error && validated && <p class="block-success-message">{ __( 'Feed validated successfully.' ) }</p> }
+				</Button>				
+				<Message error={ error } validated={ validated } />
 			</div>
 			<InspectorControls>
 				<PanelBody title={ __( 'RSS Feed Settings' ) }>
