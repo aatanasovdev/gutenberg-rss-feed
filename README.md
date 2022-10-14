@@ -6,8 +6,6 @@ Gutenberg has to be installed on your WordPress instance in order to use this pl
 
 The plugin uses the `fetch_feed` WordPress function to display the entries from a feed on your website (https://codex.wordpress.org/Function_Reference/fetch_feed).
 
-You can see a demo version of the plugin on https://aatanasov.net/example-rss-feed/
-
 #### Installation
 
 Here are the steps for installing and setting up this plugin to your WordPress site:
