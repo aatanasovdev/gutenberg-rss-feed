@@ -13,7 +13,7 @@ class FrontendTestRender extends TestCase {
 	 *
 	 * @return void
 	 */
-	protected function SetUp() {
+	protected function SetUp(): void {
 		self::feed_setup();
 	}
 
@@ -34,9 +34,9 @@ class FrontendTestRender extends TestCase {
 	public function test_output() {
 		$html_tag = 'div';
 
-		$this->assertContains( $html_tag, self::$output );
+		$this->assertStringContainsString( $html_tag, self::$output );
 		
-		$this->assertContains( $html_tag, GRF_Frontend::output() );
+		$this->assertStringContainsString( $html_tag, GRF_Frontend::output() );
 	}
 
 	/**
@@ -45,14 +45,14 @@ class FrontendTestRender extends TestCase {
 	 * @return void
 	 */
 	public function test_number_of_posts() {
-		$this->assertNotContains( self::$feed_items[1]->get_title(), self::$output );
+		$this->assertStringNotContainsString( self::$feed_items[1]->get_title(), self::$output );
 
 		self::$number_of_posts = 2;
 
 		$output = self::get_output();
 
-		$this->assertContains( self::$feed_items[1]->get_title(), $output );
-		$this->assertNotContains( self::$feed_items[2]->get_title(), $output );
+		$this->assertStringContainsString( self::$feed_items[1]->get_title(), $output );
+		$this->assertStringNotContainsString( self::$feed_items[2]->get_title(), $output );
 	}
 
 	/**
@@ -63,13 +63,13 @@ class FrontendTestRender extends TestCase {
 	public function test_showing_description() {
 		$description = self::$feed_items[0]->get_description();
 
-		$this->assertContains( $description, self::$output );
+		$this->assertStringContainsString( $description, self::$output );
 
 		self::$show_description = false;
 
 		$output = self::get_output();
 
-		$this->assertNotContains( $description, $output );
+		$this->assertStringNotContainsString( $description, $output );
 
 	}
 
@@ -81,13 +81,13 @@ class FrontendTestRender extends TestCase {
 	public function test_showing_date() {
 		$date = self::$feed_items[0]->get_date( self::get_date_format() );
 
-		$this->assertContains( $date, self::$output );
+		$this->assertStringContainsString( $date, self::$output );
 
 		self::$show_date = false;
 
 		$output = self::get_output();
 
-		$this->assertNotContains( $date, $output );
+		$this->assertStringNotContainsString( $date, $output );
 
 	}
 
@@ -102,7 +102,7 @@ class FrontendTestRender extends TestCase {
 
 		$output = self::get_output();
 
-		$this->assertContains( 'Please set the URL of the RSS feed through the WordPress dashboard.', $output );
+		$this->assertStringContainsString( 'Please set the URL of the RSS feed through the WordPress dashboard.', $output );
 
 		self::$feed_url = $main_feed_url;
 	}
@@ -118,7 +118,7 @@ class FrontendTestRender extends TestCase {
 		// Expected PHP notice from SimplePie because of the incorrect feed URL.
 		$output = self::get_output();
 
-		$this->assertContains( 'Please make sure the provided URL is a valid feed.', $output );
+		$this->assertStringContainsString( 'Please make sure the provided URL is a valid feed.', $output );
 	}
 
 	/**

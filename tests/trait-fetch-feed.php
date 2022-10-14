@@ -10,7 +10,7 @@ trait FetchFeed {
 	 *
 	 * @var string
 	 */
-	static protected $feed_url = 'https://aatanasov.net/feed/';
+	static protected $feed_url = 'https://wordpress.org/news/feed/';
 
 	/**
 	 * Number of posts.
