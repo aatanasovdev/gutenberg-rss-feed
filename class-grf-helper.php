@@ -5,7 +5,7 @@
  * @since 0.1
  */
 class GRF_Helper {
-	
+
 	/**
 	 * The main method used for fetching a feed.
 	 *

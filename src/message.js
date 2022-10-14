@@ -11,7 +11,7 @@ export default function Message(props) {
 	return(
 		<div class="block-message">
 			{ props.error && <p class="block-message-error">{ messages.error }</p> }
-			{ !props.error && props.validated && <p class="block-message-success">{ messages.validated }</p> }		
+			{ !props.error && props.validated && <p class="block-message-success">{ messages.validated }</p> }
 		</div>
 	)
 }

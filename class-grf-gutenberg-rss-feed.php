@@ -5,7 +5,7 @@
  * @since 0.1
  */
 class GRS_Gutenberg_Rss_Feed {
-	
+
 	/**
 	 * Enable the custom Gutenberg block.
 	 *
@@ -30,7 +30,7 @@ class GRS_Gutenberg_Rss_Feed {
 	static function register_block() {
 		register_block_type( __DIR__ , array(
 			'render_callback' => array(
-				'GRF_Frontend', 
+				'GRF_Frontend',
 				'render'
 			)
 		) );

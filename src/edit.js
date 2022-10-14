@@ -8,14 +8,14 @@ import {
 } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
-import { 
+import {
 	PanelBody,
 	TextControl,
 	Button,
 	ToggleControl,
 	RangeControl
 
-} from '@wordpress/components';	
+} from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -26,20 +26,20 @@ export default function edit( { attributes, setAttributes } ) {
 	const [ error, setError ] = useState( false );
 	const [ validated, setValidated ] = useState( false );
 
-	const { 
-		url, 
-		numberOfPosts, 
-		showDescription, 
-		showDate, showContent 
+	const {
+		url,
+		numberOfPosts,
+		showDescription,
+		showDate, showContent
 	} = attributes;
 
 	const onChangeNumber = newNumberOfPosts => {
 		setAttributes( { numberOfPosts: newNumberOfPosts } );
-	} 
+	}
 
 	const onChangeURL = newURL => {
 		setAttributes( { url: newURL } );
-	};			
+	};
 
 	const toggleAttribute = propName => {
 		return () => {
@@ -51,15 +51,15 @@ export default function edit( { attributes, setAttributes } ) {
 		setError( false );
 		setValidated( false );
 
-		apiFetch( { 
+		apiFetch( {
 			path: '/gutenbergrssfeed/v2/validateFeedUrl/?url=' + url,
 			method: 'GET'
 		}).then( ( response ) => {
 			if( ! response.success ) {
 				setError( true );
 				return;
-			} 
-			
+			}
+
 			setValidated( true );
 		});
 	};
@@ -75,13 +75,13 @@ export default function edit( { attributes, setAttributes } ) {
 					value={ url }
 					type="url"
 					onChange={ onChangeURL }
-				/>		
+				/>
 				<Button
 					variant="primary"
 					onClick={ validateURL }
 					type="submit">
 					{ __( 'Fetch' ) }
-				</Button>				
+				</Button>
 				<Message error={ error } validated={ validated } />
 			</div>
 			<InspectorControls>
@@ -102,12 +102,12 @@ export default function edit( { attributes, setAttributes } ) {
 						label={ __( 'Display post date' ) }
 						checked={ showDate}
 						onChange={ toggleAttribute( 'showDate' ) }
-					/>	
+					/>
 					<ToggleControl
 						label={ __( 'Display post content' ) }
 						checked={ showContent }
 						onChange={ toggleAttribute( 'showContent' ) }
-					/>	
+					/>
 				</PanelBody>
 			</InspectorControls>
 		</div>

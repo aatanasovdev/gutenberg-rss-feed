@@ -5,7 +5,7 @@
  * @since 0.1
  */
 class GRF_Frontend {
-	
+
 	/**
 	 * Feed object.
 	 *
@@ -65,7 +65,7 @@ class GRF_Frontend {
 	static function validate() {
 		if( empty( self::$data[ 'url' ] ) ) {
 			return __( 'Please set the URL of the RSS feed through the WordPress dashboard.' );
-		}		
+		}
 
 		if( is_wp_error( self::$feed ) || isset( self::$feed->errors ) ) {
 			return __( 'Please make sure the provided URL is a valid feed.' );
@@ -76,14 +76,14 @@ class GRF_Frontend {
 		}
 
 		return false;
-	}	
+	}
 
 	/**
 	 * Prepare the html markup of the feed.
 	 *
 	 * @return string
 	 */
-	static function output() {	
+	static function output() {
 		if( ! empty( self::$data[ 'numberOfPosts' ] ) ) {
 			self::$number_of_posts = intval( self::$data[ 'numberOfPosts' ] );
 		}
@@ -112,7 +112,7 @@ class GRF_Frontend {
 	                <?php if( isset( self::$data[ 'showDate' ] ) && self::$data[ 'showDate' ] ) : ?>
 						<p class="grf_item_date"><?php echo $item->get_date( $date_format ); ?></p>
 	            	<?php endif; ?>
-					
+
 					<?php if( isset( self::$data[ 'showDescription' ] ) && self::$data[ 'showDescription' ] && method_exists( $item, 'get_description' ) && $item->get_description() ) : ?>
 
 						<p class="grf_item_description">
@@ -142,6 +142,6 @@ class GRF_Frontend {
 
 		do_action('grf_after_items');
 
-		return apply_filters('grf_frontend_output', $output);		
-	}	
+		return apply_filters('grf_frontend_output', $output);
+	}
 }
