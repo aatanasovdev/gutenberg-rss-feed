@@ -19,7 +19,7 @@ class GRF_WP_Rest_API {
 				'name' => '/validateFeedUrl/'
 			);
 
-			register_rest_route( $route_settings['path'], $route_settings['name'], array(
+			register_rest_route( $route_settings[ 'path' ], $route_settings[ 'name' ], array(
 				'methods' => 'GET',
 				'args' => array(
 					'url'
@@ -39,17 +39,17 @@ class GRF_WP_Rest_API {
 	 * @return boolean
 	 * @since 0.1
 	 */
-	static function validate_feed_url_endpoint($data) {
-		$validated['success'] = false;
+	static function validate_feed_url_endpoint( $data ) {
+		$validated[ 'success' ] = false;
 
-		if(!empty($data['url'])) {
-			$feed = GRF_Helper::fetch_feed($data['url']);
+		if( ! empty( $data[ 'url' ] ) ) {
+			$feed = GRF_Helper::fetch_feed( $data[ 'url' ] );
 
-			if(!is_wp_error($feed) && !isset($feed->errors)) {
-				$validated['success'] = true;
+			if( ! is_wp_error( $feed ) && ! isset( $feed->errors ) ) {
+				$validated[ 'success' ] = true;
 			}
 		}
 
-		return wp_send_json($validated);
+		return wp_send_json( $validated );
 	}
 }
