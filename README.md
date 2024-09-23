@@ -1,3 +1,5 @@
+# The WordPress Block code of this repository is outdated - follow the new approach explained in [https://developer.wordpress.org/](https://developer.wordpress.org/)
+
 ### Gutenberg -- RSS feed
 
 This is a WordPress plugin that registers a Gutenberg block. The block displays posts from an RSS feed.
